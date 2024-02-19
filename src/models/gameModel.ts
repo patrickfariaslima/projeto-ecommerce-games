@@ -27,5 +27,9 @@ export const Game = database.define("games", {
     genre: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: true,
     }
 });
