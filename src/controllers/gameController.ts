@@ -1,48 +1,64 @@
-import { database } from "../database/database";
 import { Game } from "../models/gameModel";
-
 import { Request, Response } from "express";
 
-export const getAll = async (request: any, response: any) => {
-    let {limit} = request.query;
-    let gameList = await Game.findAll({limit});
+export const getAll = async (request: Request, response: Response): Promise<Response> => {
+    try{
+        let {limit}: any = request.query;
+        let gameList = await Game.findAll({limit});
 
-    response.json(gameList);
+        return response.status(200).json(gameList);
+    }catch(error){
+        return response.status(500).json({error:"Internal Server Error"});
+    }
 };
 
-export const getOne = async (request: any, response: any) => {
-    const id = request.params.idGame;
-    const game = await Game.findByPk(id);
+export const getOne = async (request: Request, response: Response): Promise<Response> => {
+    try {
+        const id = request.params.id;
+        const game = await Game.findByPk(id);
 
-    if(!game) return response.status(404).end("O jogo não foi encontrado! :(");
+        if (!game) return response.status(404).end("Game not found! :(");
 
-    response.status(200).json(game);
-}
-
-export const createOne = async (request: any, response: any) =>{
-    const game = await Game.create(request.body);
-
-    response.status(201).json(game);
-}
-
-export const updateOne = async (request: Request, response: Response) =>{
-    const filter = {where: {idGame: request.params.idGame }};
-
-    const [gameAffected] = await Game.update(request.body, filter);
-
-    if(gameAffected === 0) return response.status(404).end("O jogo não foi encontrado! :(");
-
-    const updatedGame = await Game.findByPk(request.params.idGame);
-
-    response.status(201).json(updatedGame);
+        return response.status(200).json(game);
+    } catch (error) {
+        return response.status(500).json({ error: "Internal Server Error" });
+    }
 };
 
-export const deleteOne = async (request: any, response: any) =>{
-    const filter = { where: { idGame: request.params.idGame }};
+export const createOne = async (request: Request, response: Response): Promise<Response> => {
+    try {
+        const game = await Game.create(request.body);
 
-    const deleted = await Game.destroy(filter);
+        return response.status(201).json(game);
+    } catch (error) {
+        return response.status(500).json({ error: "Internal Server Error." });
+    }
+};
 
-    if(deleted <=0) return response.status(404).end("O jogo não foi encontrado! :(");
+export const updateOne = async (request: Request, response: Response): Promise<Response> => {
+    try {
+        const filter = { where: { id: request.params.id } };
+        const [gameAffected] = await Game.update(request.body, filter);
 
-    response.status(200).end("Jogo removido da lista com sucesso! :D");
-}
+        if (gameAffected === 0) return response.status(404).end("Game not found! :(");
+
+        const updatedGame = await Game.findByPk(request.params.id);
+
+        return response.status(201).json(updatedGame);
+    } catch (error) {
+        return response.status(500).json({ error: "Internal Server Error." });
+    }
+};
+
+export const deleteOne = async (request: Request, response: Response): Promise<Response> => {
+    try {
+        const filter = { where: { id: request.params.id } };
+        const deleted = await Game.destroy(filter);
+
+        if (deleted <= 0) return response.status(404).end("Game not found! :(");
+
+       return response.status(200).end("Game deleted sucessfully! :)");
+    } catch (error) {
+       return response.status(500).json({ error: "Internal Server Error" });
+    }
+};

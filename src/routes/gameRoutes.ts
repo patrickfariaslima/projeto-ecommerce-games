@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { getAll, getOne, createOne, updateOne, deleteOne } from "../controllers/gameController";
+import * as controller from "../controllers/gameController";
 
-const router = Router();
+const router: Router = Router();
 
 router.route("/")
-    .get(getAll)
-    .post(createOne);
+    .get(controller.getAll)
+    .post(controller.createOne);
 
 router.route("/:id")
-    .get(getOne)
-    .put(updateOne)
-    .delete(deleteOne);
+    .get(controller.getOne)
+    .put(controller.updateOne)
+    .delete(controller.deleteOne);
 
 export default router;

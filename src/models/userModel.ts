@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { database } from "../database/database";
+import { database } from "../database";
 import { Order } from "./orderModel";
 
 
@@ -20,10 +20,6 @@ export const User = database.define("users", {
         unique: true
     },
     password: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    role: {
         type: DataTypes.STRING,
         allowNull: false
     },

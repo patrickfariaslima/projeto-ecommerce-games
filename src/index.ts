@@ -1,16 +1,20 @@
-import express from 'express';
-import { database } from './database/database';
+import express, {Express} from 'express';
+import { database } from './database';
 import { logMiddleware } from './middlewares/logMiddleware';
+import 'dotenv/config';
+import routes from './routes/index';
 
 
-async function main(){
+async function main(): Promise<void> {
     await database.sync();
 
-    const app = express();
+    const app: Express = express();
     app.use(express.json());
     app.use(logMiddleware);
 
-    const PORT = 3000;
+    routes(app);
+
+    const PORT: string | undefined = process.env.PORT;
     app.listen(PORT, () =>
         console.log(`Servidor rodando em http://localhost:${PORT}/home`));
 }

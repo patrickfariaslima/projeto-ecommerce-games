@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { database } from "../database/database";
+import { database } from "../database";
 import { Game } from "./gameModel";
 import { User } from "./userModel";
 
@@ -26,4 +26,3 @@ export const Order = database.define("orders", {
 
 Order.belongsTo(User, { foreignKey: 'userId' });
 Order.belongsToMany(Game, {through: 'OrderGames', foreignKey: 'orderId'});
-

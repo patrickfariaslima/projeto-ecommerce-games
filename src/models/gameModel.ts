@@ -1,4 +1,4 @@
-import { database } from "../database/database";
+import { database } from "../database";
 import { DataTypes } from "sequelize";
 import { Order } from "./orderModel";
 
