@@ -33,14 +33,15 @@ export const authMiddleware = async (request: Request, response: Response, next:
 
         if(!validatedPassword) return response.status(401).json({error: "Unauthorized"},);
 
-        const payload = {
-            email: user.email,
-            role: user.role,
-        };
+        // VERIFICAR SE SERÁ REALMENTE NECESSÁRIO.
+        // const payload = {
+        //     email: user.email,
+        //     role: user.role,
+        // };
 
-        const token = jwt.sign(payload, secret);
+        // const token = jwt.sign(payload, secret);
 
-        request.token = token;
+        // request.token = token;
 
         next();
     } catch(error){

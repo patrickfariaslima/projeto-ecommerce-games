@@ -1,12 +1,14 @@
 import { DataTypes } from "sequelize";
 import { database } from "../database/database";
+import { Order } from "./orderModel";
+
 
 export const User = database.define("users", {
-    idUser: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+    id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     name: {
         type: DataTypes.STRING,
@@ -26,3 +28,5 @@ export const User = database.define("users", {
         allowNull: false
     },
 })
+
+User.hasMany(Order, { foreignKey: 'userId'});

@@ -1,12 +1,13 @@
 import { database } from "../database/database";
 import { DataTypes } from "sequelize";
+import { Order } from "./orderModel";
 
 export const Game = database.define("games", {
-    idGame: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+    id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     game: {
         type: DataTypes.STRING,
@@ -33,3 +34,5 @@ export const Game = database.define("games", {
         allowNull: true,
     }
 });
+
+Game.belongsToMany(Order, { through: 'OrderGames', foreignKey: 'gameId' });
