@@ -1,0 +1,33 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="registroUsuario.css">
+    <title>Página de Cadastro</title>
+</head>
+<body>
+
+<div id="register-container" class="fade-transition"> <!-- Adicione a classe fade-transition aqui -->
+    <h2>Página de Cadastro</h2>
+    <form id="register-form">
+        <label for="new-fullname">Nome Completo:</label>
+        <input type="text" id="new-fullname" name="new-fullname" required>
+
+        <label for="new-cpf">CPF: </label>
+        <input type="text" id="new-cpf" name="new-cpf" required>
+
+        <label for="new-email">Email: </label>
+        <input type="email" id="new-email" name="new-email" required>
+
+        <label for="new-password">Crie a sua senha:</label>
+        <input type="password" id="new-password" name="new-password" required>
+
+        <button type="button" onclick="registerUser()" id="register-btn">Register</button>
+    </form>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
