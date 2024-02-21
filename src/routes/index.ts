@@ -5,7 +5,7 @@ import upload  from "../utils/multerUpload";
 import {default as gameRoutes} from "./gameRoutes";
 import {default as userRoutes} from "./userRoutes";
 import Game from "../models/gameModel";
-// import {default as orderRoutes} from "./orderRoutes";
+import {default as orderRoutes} from "./orderRoutes";
 
 export default function routes(app: Express) {
     //GET HOME.html
