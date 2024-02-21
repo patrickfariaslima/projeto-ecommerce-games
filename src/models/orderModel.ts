@@ -2,14 +2,14 @@ import { DataTypes, Model } from "sequelize";
 import { database } from "../database";
 
 interface IOrder {
-    id: string;
+    id: number;
     payment: string;
     status: string;
     totalAmount: string;
 }
 
 class Order extends Model<IOrder> {
-    id!: string;
+    id!: number;
     payment!: string;
     status!: string;
     totalAmount!: string;

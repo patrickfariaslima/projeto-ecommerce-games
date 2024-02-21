@@ -16,10 +16,10 @@ export default function routes(app: Express) {
         response.sendFile(path.resolve("public/upload.html"));
     });
 
-    // //GET UPLOAD.html
-    app.get("/upload/:id", (request: Request, response: Response): void => {
-        return response.render("uploadTaskImg", { id: request.params.id });
-    });
+    // // //GET UPLOAD.html
+    // app.get("/upload/:id", (request: Request, response: Response): void => {
+    //     return response.render("uploadTaskImg", { id: request.params.id });
+    // });
 
     //UPLOAD FILE
     app.post("/upload", upload.single("file"), (_:any, response:Response): void =>{
@@ -27,7 +27,7 @@ export default function routes(app: Express) {
     });
 
     // ROTAS DE JOGOS
-    app.use("/game", gameRoutes);
+    app.use("/games", gameRoutes);
 
     // ROTAS DE USUÁRIOS
     app.use("/users", userRoutes)

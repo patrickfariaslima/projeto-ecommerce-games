@@ -31,6 +31,7 @@ export const createOne = async (request: Request, response: Response): Promise<R
 
         return response.status(201).json(game);
     } catch (error) {
+        console.error("Error creating game:", error);
         return response.status(500).json({ error: "Internal Server Error." });
     }
 };

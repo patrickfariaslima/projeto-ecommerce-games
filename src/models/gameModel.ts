@@ -3,7 +3,7 @@ import { DataTypes, Model } from "sequelize";
 import Order from "./orderModel";
 
 interface IGame {
-    id: string;
+    id: number;
     name: string;
     price: string;
     platform: string;
@@ -13,7 +13,7 @@ interface IGame {
 }
 
 class Game extends Model<IGame> {
-    id!: string;
+    id!: number;
     name!: string;
     price!: string;
     platform!: string;

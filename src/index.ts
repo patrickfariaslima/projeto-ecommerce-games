@@ -8,9 +8,9 @@ import { initializeUserAssociations } from './models/userModel';
 
 
 async function main(): Promise<void> {
+    await database.sync();
     initializeGameAssociations();
     initializeUserAssociations();
-    await database.sync();
 
     const app: Express = express();
     app.use(express.json());

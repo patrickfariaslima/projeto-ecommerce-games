@@ -2,15 +2,15 @@ import { DataTypes, Model } from "sequelize";
 import { database } from "../database";
 import Order from "./orderModel";
 
-interface IUser {
-    id: string;
+export interface IUser {
+    id: number;
     name: string;
     email: string;
     password: string;
 }
 
 class User extends Model<IUser> {
-    id!: string;
+    id!: number;
     name!: string;
     email!: string;
     password!: string;
