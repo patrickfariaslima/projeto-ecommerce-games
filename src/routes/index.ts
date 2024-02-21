@@ -17,12 +17,12 @@ export default function routes(app: Express) {
     });
 
     // //GET UPLOAD.html
-    // app.get("/upload/:id", (request: Request, response: Response): void => {
-    //     return response.render("uploadTaskImg", { id: request.params.id });
-    // });
+    app.get("/upload/:id", (request: Request, response: Response): void => {
+        return response.render("uploadTaskImg", { id: request.params.id });
+    });
 
     //UPLOAD FILE
-    app.post("/upload", upload.single("file"), (request:Request, response:Response): void =>{
+    app.post("/upload", upload.single("file"), (_:any, response:Response): void =>{
         response.end("Upload sucessful!");
     });
 

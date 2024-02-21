@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Imagem</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: "Ubuntu", sans-serif;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+    <h1>Upload de Imagem de Jogo</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label for="image">Selecione uma imagem:</label>
+        <input type="file" name="image" id="image" accept="image/*">
+        <br>
+        <label for="bookTitle">Título do Jogo:</label>
+        <select name="bookTitle" id="bookTitle" required>
+        </select>
+        <br>
+        <button type="button" onclick="uploadImage()">Enviar</button>
+    </form>
+
+
+    <script>
+        function fillGameTitles() {
+            fetch('/gameTitle')
+            .then(response => response.json())
+            .then(responseData => {
+                const gameTitleSelect = document.getElementById('gameTitle');
+                if(gameTitleSelect){
+                    gameTitleSelect.innerHTML = '';
+
+                    responseData.forEach(game => {
+                        const option = document.createElement('option');
+                        option.value = game.title;
+                        option.textContent = game.title;
+                        gameTitleSelect.appendChild(option);
+                    });
+                } else {
+                    console.error('Elemento com ID "gameTitle" não encontrado.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao obter títulos dos jogos:', error);
+            });
+        }
+
+        function uploadImage() {
+            const form = document.getElementById('uploadForm');
+            const formData = new FormData(form);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Erro ao enviar imagem:', error);
+            });
+        }
+
+        fillGameTitles();
+    </script>
+</body>
+</html>

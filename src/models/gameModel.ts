@@ -4,7 +4,7 @@ import Order from "./orderModel";
 
 interface IGame {
     id: string;
-    game: string;
+    name: string;
     price: string;
     platform: string;
     ageRating: string;
@@ -14,7 +14,7 @@ interface IGame {
 
 class Game extends Model<IGame> {
     id!: string;
-    game!: string;
+    name!: string;
     price!: string;
     platform!: string;
     ageRating!: string;
@@ -29,7 +29,7 @@ Game.init({
         primaryKey: true,
         autoIncrement: true
     },
-    game: {
+    name: {
         type: DataTypes.STRING,
         allowNull: false
     },
