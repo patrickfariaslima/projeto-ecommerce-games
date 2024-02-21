@@ -22,10 +22,10 @@
     <h1>Upload de Imagem de Jogo</h1>
     <form id="uploadForm" enctype="multipart/form-data">
         <label for="image">Selecione uma imagem:</label>
-        <input type="file" name="image" id="image" accept="image/*">
+        <input type="file" name="image" id="image" accept="images/*">
         <br>
-        <label for="bookTitle">Título do Jogo:</label>
-        <select name="bookTitle" id="bookTitle" required>
+        <label for="gameTitle">Título do Jogo:</label>
+        <select name="gameTitle" id="gameTitle" required>
         </select>
         <br>
         <button type="button" onclick="uploadImage()">Enviar</button>
@@ -34,7 +34,7 @@
 
     <script>
         function fillGameTitles() {
-            fetch('/gameTitle')
+            fetch('/gametitle')
             .then(response => response.json())
             .then(responseData => {
                 const gameTitleSelect = document.getElementById('gameTitle');
@@ -43,8 +43,8 @@
 
                     responseData.forEach(game => {
                         const option = document.createElement('option');
-                        option.value = game.title;
-                        option.textContent = game.title;
+                        option.value = game.name;
+                        option.textContent = game.name;
                         gameTitleSelect.appendChild(option);
                     });
                 } else {

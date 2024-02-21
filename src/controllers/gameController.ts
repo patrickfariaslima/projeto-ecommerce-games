@@ -63,3 +63,31 @@ export const deleteOne = async (request: Request, response: Response): Promise<R
        return response.status(500).json({ error: "Internal Server Error" });
     }
 };
+
+export const linkImage = async (request: any, response: any) => {
+    const body = {
+        image: request.file.filename
+    };
+
+    const filter = {
+        where: { id: request.params.id }
+    };
+
+    try {
+        const game: any = await Game.update(body, filter);
+        if (game > 0) {
+            const updatedGame = await Game.findOne({ where: { id: request.params.id }});
+            if (updatedGame) {
+                console.log(updatedGame);
+                response.json(updatedGame);
+            } else {
+                response.status(404).json({ error: "Jogo não encontrado após atualização" });
+            }
+        } else {
+            response.status(404).json({ error: "Nenhum jogo foi atualizado" });
+        }
+    } catch (error) {
+        console.error("Erro ao atualizar o jogo:", error);
+        response.status(500).json({ error: "Erro ao atualizar o jogo" });
+    }
+};
