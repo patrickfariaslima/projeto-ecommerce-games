@@ -1,4 +1,4 @@
-import { Order } from "../models/orderModel";
+import Order from "../models/orderModel";
 import { Request, Response } from "express";
 
 export const getAllOrders = async (_: Request, response:Response): Promise<Response> => {

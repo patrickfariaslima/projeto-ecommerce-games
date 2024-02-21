@@ -1,4 +1,4 @@
-import { User } from "../models/userModel";
+import User from "../models/userModel";
 import bcrypt from 'bcrypt';
 import { Request, Response } from "express";
 
@@ -11,22 +11,22 @@ export const getUsers = async (_: Request, response: Response): Promise<Response
     }
 };
 
-export const createUser = async (request: Request, response: Response): Promise<Response> =>{
-    try {
-        const { name, email, password } = request.body;
+// export const createUser = async (request: Request, response: Response): Promise<Response> =>{
+//     try {
+//         const { name, email, password } = request.body;
 
-        const encryptedPassword = await bcrypt.hash(password, 10);
+//         const encryptedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = {
-            name,
-            email,
-            password: encryptedPassword
-        };
+//         const newUser = {
+//             name,
+//             email,
+//             password: encryptedPassword
+//         };
 
-        await User.create(newUser);
+//         await User.create(newUser);
 
-        return response.status(201).json(newUser);
-    } catch (error) {
-        return response.status(500).json({ error: "Internal Server Error." });
-    }
-};
+//         return response.status(201).json(newUser);
+//     } catch (error) {
+//         return response.status(500).json({ error: "Internal Server Error." });
+//     }
+// };

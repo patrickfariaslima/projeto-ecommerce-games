@@ -8,6 +8,6 @@ router.get("/", controller.getUsers)
 
 router.post("/login", authMiddleware);
 
-router.post("/create", controller.createUser);
+// router.post("/create", controller.createUser);
 
 export default router;

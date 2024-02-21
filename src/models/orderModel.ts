@@ -1,9 +1,21 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { database } from "../database";
-import { Game } from "./gameModel";
-import { User } from "./userModel";
 
-export const Order = database.define("orders", {
+interface IOrder {
+    id: string;
+    payment: string;
+    status: string;
+    totalAmount: string;
+}
+
+class Order extends Model<IOrder> {
+    id!: string;
+    payment!: string;
+    status!: string;
+    totalAmount!: string;
+}
+
+Order.init({
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -16,13 +28,17 @@ export const Order = database.define("orders", {
     },
     status: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
     totalAmount: {
-        type: DataTypes.DOUBLE(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false
-    }
+    },
+},
+{
+    tableName: "orders",
+    modelName: "Order",
+    sequelize: database
 });
 
-Order.belongsTo(User, { foreignKey: 'userId' });
-Order.belongsToMany(Game, {through: 'OrderGames', foreignKey: 'orderId'});
+export default Order;

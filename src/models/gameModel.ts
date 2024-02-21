@@ -1,8 +1,28 @@
 import { database } from "../database";
-import { DataTypes } from "sequelize";
-import { Order } from "./orderModel";
+import { DataTypes, Model } from "sequelize";
+import Order from "./orderModel";
 
-export const Game = database.define("games", {
+interface IGame {
+    id: string;
+    game: string;
+    price: string;
+    platform: string;
+    ageRating: string;
+    genre: string;
+    image: string;
+}
+
+class Game extends Model<IGame> {
+    id!: string;
+    game!: string;
+    price!: string;
+    platform!: string;
+    ageRating!: string;
+    genre!: string;
+    image!: string;
+}
+
+Game.init({
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -14,7 +34,7 @@ export const Game = database.define("games", {
         allowNull: false
     },
     price: {
-        type: DataTypes.DOUBLE(5,2),
+        type: DataTypes.DECIMAL(5, 2),
         allowNull: false
     },
     platform: {
@@ -32,7 +52,16 @@ export const Game = database.define("games", {
     image: {
         type: DataTypes.STRING,
         allowNull: true,
-    }
+    },
+},
+{
+    tableName: "games",
+    modelName: "Game",
+    sequelize: database
 });
 
-Game.belongsToMany(Order, { through: 'OrderGames', foreignKey: 'gameId' });
+export const initializeGameAssociations = () => {
+    Game.belongsToMany(Order, { through: 'OrderGames', foreignKey: 'gameId' });
+};
+
+export default Game;

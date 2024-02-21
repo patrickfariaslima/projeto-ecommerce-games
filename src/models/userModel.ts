@@ -1,9 +1,22 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { database } from "../database";
-import { Order } from "./orderModel";
+import Order from "./orderModel";
 
+interface IUser {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+}
 
-export const User = database.define("users", {
+class User extends Model<IUser> {
+    id!: string;
+    name!: string;
+    email!: string;
+    password!: string;
+}
+
+User.init({
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -23,6 +36,14 @@ export const User = database.define("users", {
         type: DataTypes.STRING,
         allowNull: false
     },
-})
+},
+{
+    tableName: "users",
+    modelName: "User",
+    sequelize: database
+});
 
-User.hasMany(Order, { foreignKey: 'userId'});
+export const initializeUserAssociations = () => {
+    User.hasMany(Order, { foreignKey: 'userId' });
+};
+export default User;
