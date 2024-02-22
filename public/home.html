@@ -1,43 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="homeStyle.css">
-    <title>Login Page</title>
-</head>
-<body>
-
-    <div id="login-container" class="fade-transition">
-    <h2>Login</h2>
-    <form id="login-form">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <label for="bg-upload" style="display: none;">Upload Background:</label>
-        <input type="file" id="bg-upload" name="bg-upload" style="display: none;" disabled>
-
-        <button type="button" onclick="login()" id="login-btn">Login</button>
-        <button type="button" onclick="redirectToRegister()" id="register-redirect-btn">Register</button>
-    </form>
-</div>
-
-<div id="logout-container" class="fade-transition" style="display: none;">
-    <h2>Welcome!</h2>
-    <button onclick="logout()">Logout</button>
-
-
-    <button id="download-btn" onclick="handleImageDownload()" disabled style="display: none;">Download Background</button>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,8 +31,8 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
-            width: 150px; /* Tamanho definido */
-            box-sizing: border-box; /* Garantindo que o tamanho total seja o mesmo independentemente do padding */
+            width: 150px;
+            box-sizing: border-box;
         }
         button:hover {
             background-color: #45a049;
