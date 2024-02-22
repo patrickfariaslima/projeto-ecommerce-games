@@ -84,3 +84,4 @@ export const deleteOne = async (request: Request, response: Response): Promise<R
 //         response.status(500).json({ error: "Erro ao atualizar o jogo" });
 //     }
 // };
+

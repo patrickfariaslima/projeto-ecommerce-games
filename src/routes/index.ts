@@ -13,11 +13,6 @@ export default function routes(app: Express) {
         response.sendFile(path.resolve("public/home.html"));
     });
 
-    //GET UPLOAD.html
-    // app.get("/upload", (_:any, response: Response): void =>{
-    //     response.sendFile(path.resolve("public/upload.html"));
-    // });
-
     // app.get("/upload/:id", (request:Request, response: Response) =>{
     //     return response.render("uploadGameImage", {id: request.params.id});
     // }); O CORRETO
@@ -31,17 +26,14 @@ export default function routes(app: Express) {
             const gameId = request.params.id;
             const filename = request.file.filename;
 
-            // Verifica se o jogo com o ID fornecido existe
             const game = await Game.findByPk(gameId);
             if (!game) {
                 return response.status(404).json({ error: "Jogo não encontrado" });
             }
 
-            // Atualiza o atributo de imagem do jogo com o nome do arquivo
             game.image = filename;
             await game.save();
 
-            // Responde com sucesso
             response.status(200).json({ message: "Upload bem-sucedido", filename: filename });
         } catch (error) {
             console.error("Erro ao processar o upload:", error);
