@@ -73,4 +73,8 @@ export default function routes(app: Express) {
     });
 
     app.use("/images", express.static(path.join(__dirname, '../../images')));
+
+    app.get('/create', (_:any, response:Response) =>{
+        response.sendFile(path.resolve("public/registroUsuario.html"))
+    })
 }

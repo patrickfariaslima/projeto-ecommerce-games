@@ -6,6 +6,7 @@ import routes from './routes/index';
 import { initializeGameAssociations } from './models/gameModel';
 import { initializeUserAssociations } from './models/userModel';
 import path from 'path';
+import bodyParser from 'body-parser';
 
 
 async function main(): Promise<void> {
@@ -21,7 +22,9 @@ async function main(): Promise<void> {
     app.set('view engine', 'ejs');
     app.set('views', directory);
     app.use(express.urlencoded({extended: true}));
-    
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.json());
+
 
     routes(app);
 

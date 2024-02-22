@@ -1,5 +1,5 @@
 <!-- register.html -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div id="register-container" class="fade-transition"> <!-- Adicione a classe fade-transition aqui -->
+<div id="register-container" class="fade-transition">
     <h2>Página de Cadastro</h2>
     <form id="register-form">
         <label for="new-fullname">Nome Completo:</label>
@@ -29,5 +29,55 @@
 </div>
 
 <script src="script.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Usuário</title>
+</head>
+<body>
+    <h1>Criar Novo Usuário</h1>
+    <form id="createUserForm">
+        <label for="name">Nome:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+        <label for="password">Senha:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <button type="button" onclick="createUser()">Criar Usuário</button>
+    </form>
+
+    <div id="message"></div>
+
+    <script>
+        async function createUser() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const data = { name, email, password };
+
+            const response = await fetch("/users/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const responseData = await response.json();
+            const messageElement = document.getElementById("message");
+
+            if (response.ok) {
+                messageElement.textContent = "Usuário criado com sucesso!";
+            } else {
+                messageElement.textContent = "Erro ao criar usuário: " + responseData.error;
+            }
+        }
+    </script>
 </body>
 </html>

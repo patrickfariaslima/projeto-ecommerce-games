@@ -15,7 +15,11 @@ export const getUsers = async (_: Request, response: Response): Promise<Response
 
 export const createUser = async (request: Request, response: Response) =>{
     try {
+        console.log("Entrou no controlador createUser");
+
         const { name, email, password }: Omit<IUser, "id"> = request.body;
+
+        console.log("Dados recebidos:", { name, email, password });
 
         const existingUser = await User.findOne({where: {email}});
 
@@ -35,6 +39,7 @@ export const createUser = async (request: Request, response: Response) =>{
 
         return response.status(201).json(newUser);
     } catch (error) {
+        console.error("Erro no controlador createUser:", error);
         return response.status(500).json({ error: "Internal Server Error." });
     }
 };
