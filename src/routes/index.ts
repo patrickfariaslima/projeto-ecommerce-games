@@ -1,4 +1,4 @@
-import { Express, Request, Response, response } from "express";
+import express, { Express, Request, Response, response } from "express";
 import path from "path";
 import upload  from "../utils/multerUpload";
 import {default as gameRoutes} from "./gameRoutes";
@@ -11,6 +11,10 @@ export default function routes(app: Express) {
     //GET HOME.html
     app.get("/home", (_: any, response: Response): void =>{
         response.sendFile(path.resolve("public/home.html"));
+    });
+
+    app.get("/order", (_: any, response: Response): void =>{
+        response.sendFile(path.resolve("public/order.html"));
     });
 
     // app.get("/upload/:id", (request:Request, response: Response) =>{
@@ -52,5 +56,21 @@ export default function routes(app: Express) {
     app.use("/games", gameRoutes);
 
     // ROTAS DE USUÁRIOS
-    app.use("/users", userRoutes)
+    app.use("/users", userRoutes);
+
+    app.use("/order/", orderRoutes);
+
+
+    //CATÁLOGO:
+    app.get('/gamelist', async (_:any, response:any) =>{
+        try{
+            const games = await Game.findAll();
+            response.render('gamelist', { games });
+        } catch(error){
+            console.error('Erro ao obter a lista de jogos:', error);
+            response.status(500).send('Internal Server Error');
+        }
+    });
+
+    app.use("/images", express.static(path.join(__dirname, '../../images')));
 }

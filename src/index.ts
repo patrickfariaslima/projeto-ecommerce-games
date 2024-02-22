@@ -7,6 +7,7 @@ import { initializeGameAssociations } from './models/gameModel';
 import { initializeUserAssociations } from './models/userModel';
 import path from 'path';
 
+
 async function main(): Promise<void> {
     await database.sync();
     initializeGameAssociations();
@@ -18,7 +19,9 @@ async function main(): Promise<void> {
     const directory = path.join(__dirname, '../views');
 
     app.set('view engine', 'ejs');
-    app.set('views', directory)
+    app.set('views', directory);
+    app.use(express.urlencoded({extended: true}));
+    
 
     routes(app);
 
