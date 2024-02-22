@@ -5,7 +5,7 @@ import 'dotenv/config'
 import routes from './routes/index';
 import { initializeGameAssociations } from './models/gameModel';
 import { initializeUserAssociations } from './models/userModel';
-
+import path from 'path';
 
 async function main(): Promise<void> {
     await database.sync();
@@ -15,6 +15,10 @@ async function main(): Promise<void> {
     const app: Express = express();
     app.use(express.json());
     app.use(logMiddleware);
+    const directory = path.join(__dirname, '../views');
+
+    app.set('view engine', 'ejs');
+    app.set('views', directory)
 
     routes(app);
 

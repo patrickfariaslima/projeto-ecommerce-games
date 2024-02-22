@@ -10,8 +10,8 @@ router.route("/")
 router.route("/:id")
     .get(controller.getOne)
     .put(controller.updateOne)
-    .delete(controller.deleteOne);
+    .delete(controller.deleteOne)
+    // .post(upload.single("image"), controller.linkImage);
 
-router.post("/upload/:id", upload.single("image"), controller.linkImage);
 
 export default router;

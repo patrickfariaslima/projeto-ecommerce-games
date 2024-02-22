@@ -64,30 +64,23 @@ export const deleteOne = async (request: Request, response: Response): Promise<R
     }
 };
 
-export const linkImage = async (request: any, response: any) => {
-    const body = {
-        image: request.file.filename
-    };
+// export const linkImage = async (request: any, response: Response) => {
+//     try {
+//         console.log("ID do Jogo", request.params.id);
+//         console.log("Nome do arquivo:", request.file.filename);
 
-    const filter = {
-        where: { id: request.params.id }
-    };
+//     const body = {
+//         image: request.file.filename
+//     };
 
-    try {
-        const game: any = await Game.update(body, filter);
-        if (game > 0) {
-            const updatedGame = await Game.findOne({ where: { id: request.params.id }});
-            if (updatedGame) {
-                console.log(updatedGame);
-                response.json(updatedGame);
-            } else {
-                response.status(404).json({ error: "Jogo não encontrado após atualização" });
-            }
-        } else {
-            response.status(404).json({ error: "Nenhum jogo foi atualizado" });
-        }
-    } catch (error) {
-        console.error("Erro ao atualizar o jogo:", error);
-        response.status(500).json({ error: "Erro ao atualizar o jogo" });
-    }
-};
+//     const filter = {
+//         where: { id: request.params.id }
+//     };
+
+//         const [game, _]: any = await Game.update(body, filter);
+//         response.json(game);
+//     } catch (error) {
+//         console.error("erro ao atualizar o jogo:", error)
+//         response.status(500).json({ error: "Erro ao atualizar o jogo" });
+//     }
+// };
