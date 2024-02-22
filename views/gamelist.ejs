@@ -81,7 +81,7 @@
           margin: 10px;
           text-align: center;
           display: inline-block;
-          height: 550px; /* Altura fixa */
+          height: 550px;
           width: 250px;
           box-sizing: border-box;
           vertical-align: top;
@@ -116,10 +116,36 @@
       .download-button:hover {
           background-color: #45a049;
       }
+
+      .action-button {
+        background-color: #45a049;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    .action-button:hover {
+        background-color: #005F7F;
+    }
+
   </style>
   </head>
   <body>
       <h1>Listagem de Jogos</h1>
+
+      <div>
+        <button class="action-button" id="order">Order</button>
+        <button class="action-button" id="upload">Upload</button>
+        <button class="action-button" id="logout">Logout</button>
+    </div>
+
+
       <% games.forEach((game, index) => { %>
           <div class="game-card">
               <h2><%= game.name %></h2>
