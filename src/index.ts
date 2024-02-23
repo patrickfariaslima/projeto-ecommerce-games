@@ -5,14 +5,16 @@ import 'dotenv/config'
 import routes from './routes/index';
 import { initializeGameAssociations } from './models/gameModel';
 import { initializeUserAssociations } from './models/userModel';
+import { initializeOrderAssociations } from './models/orderModel';
 import path from 'path';
 import bodyParser from 'body-parser';
-
+import cors from 'cors';
 
 async function main(): Promise<void> {
     await database.sync();
     initializeGameAssociations();
     initializeUserAssociations();
+    initializeOrderAssociations();
 
     const app: Express = express();
     app.use(express.json());
@@ -21,6 +23,9 @@ async function main(): Promise<void> {
 
     app.set('view engine', 'ejs');
     app.set('views', directory);
+    app.use(cors({
+        origin: "http://localhost:3000/home"
+      }));
     app.use(express.urlencoded({extended: true}));
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());

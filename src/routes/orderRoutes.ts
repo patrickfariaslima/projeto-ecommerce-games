@@ -12,4 +12,7 @@ router.route("/:id")
     .put(controller.updateOrder)
     .delete(controller.deleteOrder);
 
+router.route("/create")
+    .post(controller.createOrder);
+
 export default router;

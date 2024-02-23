@@ -9,4 +9,4 @@ router.post("/login", controller.loginUser);
 
 router.post("/create", controller.createUser);
 
-export default router;
+export default router;

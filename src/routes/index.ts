@@ -42,13 +42,11 @@ export default function routes(app: Express) {
         }
     });
 
-    // ROTAS DE JOGOS
     app.use("/games", gameRoutes);
 
-    // ROTAS DE USUÁRIOS
     app.use("/users", userRoutes);
 
-    app.use("/order/", orderRoutes);
+    app.use("/orders", orderRoutes);
 
 
     //CATÁLOGO:

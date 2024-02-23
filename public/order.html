@@ -3,57 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="galleryStyle.css">
-    <title>Image Gallery</title>
+    <title>Lista de jogos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .checkbox-cell {
+            text-align: center;
+        }
+        #totalSum {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .game-image {
+            max-width: 80px; /* Defina o tamanho médio desejado */
+            max-height: 80px;
+            height: auto; /* Isso mantém a proporção da imagem */
+            width: auto;
+        }
+        .action-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .action-button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
+    <h2>Game List</h2>
 
-<div class="gallery-container">
-    <h2>Galeria de imagens dos jogos</h2>
-    <div id="image-gallery"></div>
-</div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Genre</th>
+                <th>Console Type</th>
+                <th>Image</th>
+                <th>Choose</th>
+            </tr>
+        </thead>
+        <tbody id="gameListBody">
+        </tbody>
+    </table>
 
-<script>
-    function fillBookTitles() {
-        fetch('/booktitle')
-        .then(response => response.json())
-        .then(responseData => {
-            const bookTitleSelect = document.getElementById('bookTitle');
-            if(bookTitleSelect){
-                bookTitleSelect.innerHTML = '';
+    <div class="checkbox-cell">
+        <button onclick="calculateTotal()">Calculate Total</button>
+    </div>
 
-                responseData.forEach(book => {
-                    const option = document.createElement('option');
-                    option.value = book.title;
-                    option.textContent = book.title;
-                    bookTitleSelect.appendChild(option);
+    <div id="totalSum"></div>
+
+    <div class="button-container">
+        <button class="action-button" onclick="saveSelectedGames()">Salvar jogos selecionados</button>
+        <a href="/gameList" class="action-button">Ir para Lista de Jogos</a>
+        <button class="action-button" onclick="createOrder()">Create Order</button>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', async function () {
+            try {
+                const response = await fetch('/games');
+                const games = await response.json();
+
+                const gameListBody = document.getElementById('gameListBody');
+
+                games.forEach(game => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${game.id}</td>
+                        <td>${game.name}</td>
+                        <td>$${game.price.toFixed(2)}</td>
+                        <td>${game.genre}</td>
+                        <td>${game.platform}</td>
+                        <td><img class="game-image" src="http://localhost:3000/images/${game.image}" alt="${game.name}"></td>
+                        <td class="checkbox-cell"><input type="checkbox" class="gameCheckbox" data-price="${game.price}"></td>
+                    `;
+                    gameListBody.appendChild(row);
                 });
-            } else {
-                console.error('Elemento com ID "booktitle" não encontrado.');
+            } catch (error) {
+                console.error('Error fetching game list:', error);
             }
-        })
-        .catch(error => {
-            console.error('Erro ao obter títulos dos livros:', error);
         });
-    }
 
-    function uploadImage() {
-        const form = document.getElementById('uploadForm');
-        const formData = new FormData(form);
+        function calculateTotal() {
+            const checkboxes = document.querySelectorAll('.gameCheckbox:checked');
+            let totalSum = 0;
 
-        fetch('/upload', {
+            checkboxes.forEach(checkbox => {
+                totalSum += parseFloat(checkbox.dataset.price);
+            });
+
+            const totalSumElement = document.getElementById('totalSum');
+            totalSumElement.textContent = `Total: $${totalSum.toFixed(2)}`;
+        }
+
+        function calculateTotalAmount() {
+            const checkboxes = document.querySelectorAll('.gameCheckbox:checked');
+            let totalAmount = 0;
+
+            checkboxes.forEach(checkbox => {
+                totalAmount += parseFloat(checkbox.dataset.price);
+            });
+
+            return totalAmount.toFixed(2);
+        }
+        function saveSelectedGames() {
+            const checkboxes = document.querySelectorAll('.gameCheckbox:checked');
+            const selectedGameIds = Array.from(checkboxes).map(checkbox => checkbox.closest('tr').querySelector('td:first-child').textContent);
+
+            console.log('Selected Game IDs:', selectedGameIds);
+            alert('Selected games saved!');
+        }
+
+        function createOrder() {
+
+            console.log('Creating order...')
+        const checkboxes = document.querySelectorAll('.gameCheckbox:checked');
+        const selectedGameIds = Array.from(checkboxes).map(checkbox => checkbox.closest('tr').querySelector('td:first-child').textContent);
+
+        const payment = "Payment Method";
+        const status = "Pending";
+        const totalAmount = calculateTotalAmount();
+        console.log('Creating order...')
+        const orderData = {
+            payment,
+            status,
+            totalAmount,
+            games: selectedGameIds
+        };
+
+        fetch('/order/create', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData),
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
-            alert(data.message);
+            console.log('Order created:', data);
+            alert('Order created successfully!');
         })
         .catch(error => {
-            console.error('Erro ao enviar imagem:', error);
+            console.error('Error creating order:', error);
+            alert('Failed to create order. Please try again.');
         });
-    }
+    }console.log('Creating order...')
     </script>
-    
 </body>
 </html>

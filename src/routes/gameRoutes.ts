@@ -1,6 +1,5 @@
 import { Router } from "express";
 import * as controller from "../controllers/gameController";
-import upload from "../utils/multerUpload";
 
 const router: Router = Router();
 

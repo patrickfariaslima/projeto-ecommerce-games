@@ -1,25 +1,43 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Usuário</title>
+    <!-- Adicionando o link para o Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Adicionando margem superior para espaçamento */
+        body {
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Criar Novo Usuário</h1>
-    <form id="createUserForm">
-        <label for="name">Nome:</label><br>
-        <input type="text" id="name" name="name"><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email"><br>
-        <label for="password">Senha:</label><br>
-        <input type="password" id="password" name="password"><br><br>
-        <button type="button" onclick="createUser()">Criar Usuário</button>
-    </form>
+    <div class="container">
+        <h1 class="text-center">Criar Novo Usuário</h1>
+        <form id="createUserForm">
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <button type="button" class="btn btn-primary btn-block" onclick="createUser()">Criar Usuário</button>
+        </form>
 
-    <div id="message"></div>
+        <div id="message" class="mt-3 text-center"></div>
+    </div>
+
+    <!-- Adicionando os scripts do Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
     <script>
         async function createUser() {
