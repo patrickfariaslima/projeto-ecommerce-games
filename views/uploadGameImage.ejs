@@ -1,28 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload de Imagem</title>
-</head>
-<body>
-    <h1>Upload Single File</h1>
-
-    <div class="container">
-        <div class="alert alert-warning mt-3" role="alert">
-            Indique o número do ID da imagem que você gostaria de alterar na URL após o upload/.
-            Exemplo: "upload/4", irá alterar imagem de id 4.
-
-        </div>
-
-    <form action="/upload/<%= id %>" method="post" enctype="multipart/form-data">
-        <label for="file"> Escolha um arquivo:</label>
-        <input type="file" name="image">
-        <br/>
-        <button>Upload</button>
-    </form>
-</body>
-</html> -->
 
 
 <!DOCTYPE html>
@@ -31,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload de Imagem</title>
-    <!-- Adicionando a biblioteca Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -61,7 +35,7 @@
             margin-top: 10px;
         }
         button:hover {
-            background-color: #45a049; 
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -74,12 +48,39 @@
             Exemplo: "upload/4", irá alterar imagem de id 4.
         </div>
 
-        <form action="/upload/<%= id %>" method="post" enctype="multipart/form-data">
+        <form id="upload-form" action="/upload/<%= id %>" method="post" enctype="multipart/form-data">
             <label for="file">Escolha um arquivo:</label>
             <input type="file" name="image">
             <br/>
             <button type="submit" class="btn btn-success">Upload</button>
         </form>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.getElementById("upload-form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            try {
+                const response = await fetch(event.target.action, {
+                    method: "POST",
+                    body: formData
+                });
+                if (response.ok) {
+                    alert("Upload de imagem bem-sucedido!");
+                    window.location.href = "/gamelist";
+                } else {
+                    const errorMessage = await response.text();
+                    throw new Error(errorMessage);
+                }
+            } catch (error) {
+                console.error("Erro ao fazer upload de imagem:", error);
+                alert("Erro ao fazer upload de imagem. Por favor, tente novamente.");
+            }
+        });
+    </script>
 </body>
 </html>
