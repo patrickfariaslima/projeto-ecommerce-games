@@ -62,7 +62,7 @@ EXTRA DO EXTRA (300XP)
 
 Acesse o aplicativo em [http://localhost:3000](http://localhost:3000).
 
-# CONTATO:
+# Encerramento:
 Este é um projeto básico que pode ser expandido com mais funcionalidades, melhorias de segurança, entre outros. Sinta-se à vontade para explorar, modificar e aprimorar conforme necessário para atender aos requisitos específicos.
 Em caso de dúvidas ou necessidade de feedback, sinta-se à vontade para entrar em contato:
 * Patrick Farias Lima - patrickfarias@live.com - (85)99955-0878.
