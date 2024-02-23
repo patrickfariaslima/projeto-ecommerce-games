@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Usuário</title>
-    <!-- Adicionando o link para o Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Adicionando margem superior para espaçamento */
         body {
             margin-top: 50px;
         }
@@ -35,7 +33,6 @@
         <div id="message" class="mt-3 text-center"></div>
     </div>
 
-    <!-- Adicionando os scripts do Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
@@ -60,6 +57,7 @@
 
             if (response.ok) {
                 messageElement.textContent = "Usuário criado com sucesso!";
+                window.location.href = "/home";
             } else {
                 messageElement.textContent = "Erro ao criar usuário: " + responseData.error;
             }
