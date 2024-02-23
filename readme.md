@@ -13,6 +13,7 @@ Este projeto é um sistema simples de e-commerce de jogos, onde os usuários pod
 
 # *REQUISITOS DA ATIVIDADE:*
 PRINCIPAL (1000XP)
+
 [x] Trabalho em grupo evolvendo a construção de um ecommerce, com base em um tema obtido a partir da roleta;
 
 [x] A API deve ser feita contendo pelo menos 3  CRUDs, de 3 entidades diferentes, envolvendo upload e download de imagem em pelo menos um (300XP); 
