@@ -5,8 +5,10 @@ import 'dotenv/config'
 
 export const authMiddleware = async (request: Request, response: Response, next: NextFunction) =>{
     try{
-        const token = request.headers.authorization;
+        const authToken = request.headers['authorization'];
 
+
+        const token = authToken && authToken.split(" ")[1]
         console.log("Token recebido: ", token);
 
         if(!token){

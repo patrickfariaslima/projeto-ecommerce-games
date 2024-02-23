@@ -8,6 +8,13 @@
 <body>
     <h1>Upload Single File</h1>
 
+    <div class="container">
+        <div class="alert alert-warning mt-3" role="alert">
+            Indique o número do ID da imagem que você gostaria de alterar na URL após o upload/.
+            Exemplo: "upload/4", irá alterar imagem de id 4.
+
+        </div>
+
     <form action="/upload/<%= id %>" method="post" enctype="multipart/form-data">
         <label for="file"> Escolha um arquivo:</label>
         <input type="file" name="image">

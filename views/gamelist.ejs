@@ -21,7 +21,7 @@
           text-align: center;
           display: inline-block;
           height: 550px;
-          width: 250px;
+          width: 275px;
           box-sizing: border-box;
           vertical-align: top;
           background-color: #f2f2f2;
@@ -80,7 +80,7 @@
 
       <div>
         <button class="action-button" id="order">Order</button>
-        <button class="action-button" id="upload">Upload</button>
+        <button class="action-button" id="upload" onclick= " window.location.href = 'http://localhost:3000/upload/1'">Upload</button>
         <button class="action-button" id="logout">Logout</button>
     </div>
 
@@ -93,6 +93,7 @@
                   <br>
                   <a class="download-button" href="http://localhost:3000/images/<%= game.image%>" download="<%= game.name %>">Download Imagem</a>
               <% } %>
+              <p class="game-info">ID do Jogo: <%= game.id %></p>
               <p class="game-info">Preço: <%= "R$"+game.price %></p>
               <p class="game-info">Plataforma: <%= game.platform %></p>
               <p class="game-info">Classificação Etária: <%= game.ageRating %></p>

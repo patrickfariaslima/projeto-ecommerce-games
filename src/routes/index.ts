@@ -54,7 +54,7 @@ export default function routes(app: Express) {
     //CATÁLOGO:
     app.get('/gamelist', async (_:any, response:any) =>{
         try{
-            console.log("Acesano rota /gamelist")
+            console.log("Acesando rota /gamelist")
             const games = await Game.findAll();
             response.render('gamelist', { games });
         } catch(error){
@@ -67,5 +67,10 @@ export default function routes(app: Express) {
 
     app.get('/create', (_:any, response:Response) =>{
         response.sendFile(path.resolve("public/registroUsuario.html"))
-    })
+    });
+
+
+    app.get("/newgame", (_: Request, response: Response): void =>{
+        response.sendFile(path.resolve("public/newgame.html"));
+    });
 }
