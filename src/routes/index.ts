@@ -5,7 +5,8 @@ import {default as gameRoutes} from "./gameRoutes";
 import {default as userRoutes} from "./userRoutes";
 import Game from "../models/gameModel";
 import {default as orderRoutes} from "./orderRoutes";
-import * as gameController from "../controllers/gameController"
+import { authMiddleware } from "../middlewares/authMiddleware";
+
 
 export default function routes(app: Express) {
     //GET HOME.html
@@ -16,10 +17,6 @@ export default function routes(app: Express) {
     app.get("/order", (_: any, response: Response): void =>{
         response.sendFile(path.resolve("public/order.html"));
     });
-
-    // app.get("/upload/:id", (request:Request, response: Response) =>{
-    //     return response.render("uploadGameImage", {id: request.params.id});
-    // }); O CORRETO
 
     app.get("/upload/:id", (request: Request, response: Response) => {
         return response.render("uploadGameImage", { id: request.params.id });
@@ -45,13 +42,6 @@ export default function routes(app: Express) {
         }
     });
 
-    // app.get('/gametitle', async (request, response) =>{
-    //     let {limit}:any = request.query;
-    //     let gameList = await Game.findAll({ limit });
-
-    //     response.status(200).json(gameList);
-    // })
-
     // ROTAS DE JOGOS
     app.use("/games", gameRoutes);
 
@@ -64,6 +54,7 @@ export default function routes(app: Express) {
     //CATÁLOGO:
     app.get('/gamelist', async (_:any, response:any) =>{
         try{
+            console.log("Acesano rota /gamelist")
             const games = await Game.findAll();
             response.render('gamelist', { games });
         } catch(error){

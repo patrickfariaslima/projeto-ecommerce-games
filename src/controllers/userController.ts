@@ -44,6 +44,31 @@ export const createUser = async (request: Request, response: Response) =>{
     }
 };
 
+// export const loginUser = async (request: Request, response:Response) =>{
+//     try{
+//         const {email, password}: {email: string, password: string} = request.body;
+
+//         const user = await User.findOne({where: {email}});
+
+//         if(!user){
+//             return response.status(401).json({ error: "Email inválido"});
+//         }
+
+//         const passwordMatch = await bcrypt.compare(password, user.password);
+
+//         if(!passwordMatch){
+//             return response.status(401).json({error: "Email e/ou senha incorretos."});
+//         }
+
+//         const secret: any = process.env.SECRET;
+//         const token = jwt.sign({userId: user.id}, secret, { expiresIn: '2h'});
+
+//         return response.status(200).json({token});
+//     } catch(error){
+//         return response.status(500).json({error: "Internal Server Error"});
+//     }
+// }
+
 export const loginUser = async (request: Request, response:Response) =>{
     try{
         const {email, password}: {email: string, password: string} = request.body;
@@ -61,7 +86,7 @@ export const loginUser = async (request: Request, response:Response) =>{
         }
 
         const secret: any = process.env.SECRET;
-        const token = jwt.sign({userId: user.id}, secret, { expiresIn: '2h'});
+        const token = jwt.sign({userId: user.id}, secret);
 
         return response.status(200).json({token});
     } catch(error){
