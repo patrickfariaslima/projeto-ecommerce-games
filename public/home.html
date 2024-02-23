@@ -5,15 +5,12 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Login Page</title>
-   <!-- Adicionando o link para o Bootstrap -->
    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
    <style>
-       /* Estilos personalizados */
        .error {
            color: red;
            margin-bottom: 10px;
        }
-       /* Adicionando margem para o enquadramento */
        .container {
            margin-top: 50px;
        }
@@ -30,10 +27,8 @@
            <input type="password" id="password" class="form-control mb-3" placeholder="Password" required>
            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
        </form>
-       <!-- Removendo o botão extra de criação de usuário -->
        <a href="/create" class="btn btn-lg btn-secondary btn-block">Criar Usuário</a>
    </div>
-   <!-- Adicionando os scripts do Bootstrap -->
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
    <script>
@@ -53,8 +48,6 @@
                if (response.ok) {
                    localStorage.setItem('token', data.token);
                    console.log("Token recebido:", data.token);
-                   // Adiciona o token ao cabeçalho Authorization
-                   // para todas as futuras requisições
                    fetch('/gamelist', {
                        headers: {
                            'Authorization': `Bearer ${data.token}`
