@@ -1,42 +1,51 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Novo Jogo</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Criar Novo Jogo</h1>
-    <form id="create-game-form">
-        <label for="name">Nome do Jogo:</label><br>
-        <input type="text" id="name" name="name" required><br>
+    <div class="container">
+        <h1>Criar Novo Jogo</h1>
+        <form id="create-game-form">
+            <div class="form-group">
+                <label for="name">Nome do Jogo:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="price">Preço:</label>
+                <input type="number" class="form-control" id="price" name="price" required>
+            </div>
+            <div class="form-group">
+                <label for="platform">Plataforma:</label>
+                <input type="text" class="form-control" id="platform" name="platform" required>
+            </div>
+            <div class="form-group">
+                <label for="ageRating">Classificação Etária:</label>
+                <input type="text" class="form-control" id="ageRating" name="ageRating" required>
+            </div>
+            <div class="form-group">
+                <label for="genre">Gênero:</label>
+                <input type="text" class="form-control" id="genre" name="genre" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Criar Jogo</button>
+        </form>
+    </div>
 
-        <label for="price">Preço:</label><br>
-        <input type="number" id="price" name="price" required><br>
-
-        <label for="platform">Plataforma:</label><br>
-        <input type="text" id="platform" name="platform" required><br>
-
-        <label for="ageRating">Classificação Etária:</label><br>
-        <input type="text" id="ageRating" name="ageRating" required><br>
-
-        <label for="genre">Gênero:</label><br>
-        <input type="text" id="genre" name="genre" required><br>
-
-        <!-- <label for="image">URL da Imagem:</label><br>
-        <input type="text" id="image" name="image"><br> -->
-
-        <button type="submit">Criar Jogo</button>
-    </form>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         document.getElementById("create-game-form").addEventListener("submit", async (event) => {
-            event.preventDefault(); // Evitar o comportamento padrão do formulário
+            event.preventDefault();
 
             const formData = new FormData(event.target);
             const data = {};
 
-            // Convertendo FormData para um objeto JSON
             formData.forEach((value, key) => {
                 data[key] = value;
             });
@@ -52,7 +61,7 @@
 
                 if (response.ok) {
                     alert("Jogo criado com sucesso!");
-                    // Redirecionar para a página de listagem de jogos ou fazer outra ação desejada
+                    window.location.href = "/gamelist";
                 } else {
                     const errorMessage = await response.text();
                     throw new Error(errorMessage);
@@ -65,3 +74,4 @@
     </script>
 </body>
 </html>
+
